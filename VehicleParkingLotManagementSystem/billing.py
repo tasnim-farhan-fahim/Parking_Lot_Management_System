@@ -7,9 +7,6 @@ class Billing:
         self.db.connect()
 
     def calculate_fee(self, entry_time, exit_time, rate_per_hour=20):
-        # Convert string to datetime objects
-        entry_time_obj = datetime.strptime(entry_time, "%Y-%m-%d %H:%M:%S")
-        exit_time_obj = datetime.strptime(exit_time, "%Y-%m-%d %H:%M:%S")
 
         duration = (exit_time_obj - entry_time_obj).total_seconds() / 3600  # Convert seconds to hours
         fee = round(duration * rate_per_hour, 2)
