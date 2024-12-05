@@ -14,13 +14,13 @@ def main():
 
     while True:
         print("\n--- Vehicle Parking System ---")
-        print("1. Add New Slot %")
-        print("2. View Available Slots %")
-        print("3. Assign Slot %")
-        print("4. Vacate Slot %")
-        print("5. Entry Vehicle %")
+        print("1. Add New Slot ")
+        print("2. View Available Slots ")
+        print("3. Assign Slot ")
+        print("4. Vacate Slot ")
+        print("5. Entry Vehicle ")
         print("6. Exit Vehicle")
-        print("7. View Occupied Slots %")
+        print("7. View Occupied Slots ")
         print("8. View Transaction History")
         print("9. Exit")
 

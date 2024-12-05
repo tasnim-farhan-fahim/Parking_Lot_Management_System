@@ -87,33 +87,5 @@ class Vehicle:
         else:
             print(f"Vehicle with ID {vehicle_id} not found.")
 
-    # def exit_vehicle(self):
-    #     slot_id = input("Enter the vehicle lID to exit: ")
-    #
-    #     # Check if the vehicle exists in the database
-    #     vehicle_query = "SELECT slot_id, entry_time FROM vehicles WHERE id = %s;"
-    #     vehicle_data = self.db.fetch_one(vehicle_query, (slot_id,))
-    #
-    #     if vehicle_data:
-    #         slot_id, entry_time = vehicle_data  # entry_time is already a datetime object
-    #         # Calculate parking duration
-    #         exit_time = datetime.now()
-    #         parking_duration = exit_time - entry_time
-    #         total_hours = parking_duration.total_seconds() / 3600  # Convert to hours
-    #
-    #         # Log vehicle exit
-    #         print(f"Vehicle {slot_id} exited. Total parked duration: {total_hours:.2f} hours.")
-    #
-    #         # Remove vehicle from database
-    #         delete_vehicle_query = "DELETE FROM vehicles WHERE id = %s;"
-    #         self.db.execute_query(delete_vehicle_query, (slot_id,))
-    #
-    #         # Update slot status to available
-    #         update_slot_query = "UPDATE slots SET status = 'available' WHERE id = %s;"
-    #         self.db.execute_query(update_slot_query, (slot_id,))
-    #
-    #     else:
-    #         print(f"Vehicle with ID {slot_id} not found.")
-
     def close(self):
         self.db.close()

@@ -6,11 +6,15 @@ class Billing:
         self.db = DatabaseManager()
         self.db.connect()
 
-    def calculate_fee(self, entry_time, exit_time, rate_per_hour=20):
+    def calculate_fee(self, exit_time_str, entry_time_str, rate_per_hour=20):
+        # Convert string times to datetime objects
+        exit_time = datetime.strptime(exit_time_str, "%Y-%m-%d %H:%M:%S")
+        entry_time = datetime.strptime(entry_time_str, "%Y-%m-%d %H:%M:%S")
 
-        duration = (exit_time_obj - entry_time_obj).total_seconds() / 3600  # Convert seconds to hours
+        # Calculate duration in hours
+        duration = (exit_time - entry_time).total_seconds() / 3600
         fee = round(duration * rate_per_hour, 2)
-        return max(fee, rate_per_hour)  # Ensure minimum fee for first hour
+        return max(fee, rate_per_hour)  # Ensure minimum fee for the first hour
 
     def log_payment(self, vehicle_id, slot_id, amount):
         query = """

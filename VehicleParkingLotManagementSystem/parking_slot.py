@@ -65,12 +65,34 @@ class ParkingSlot:
 
         print(f"Vehicle {vehicle_id} assigned to Slot {slot_id}.")
 
-    def vacate_slot(self, slot_id):
+    def vacate_slot(self):
+        # Prompt for slot ID
         slot_id = int(input("Enter the slot ID to vacate: "))
+
+        # Check if the slot exists
+        slot_query = "SELECT status FROM slots WHERE id = %s;"
+        slot_status = self.db.fetch_one(slot_query, (slot_id,))
+
+        if not slot_status:
+            print(f"Slot with ID {slot_id} does not exist.")
+            return  # Exit if the slot doesn't exist
+
+        if slot_status[0] == 'available':
+            print(f"Slot {slot_id} is already available.")
+            return  # Exit the function if the slot is available
+
+        # Proceed to vacate the slot
         query = ("UPDATE slots "
                  "SET status = 'available' "
                  "WHERE id = %s;")
         self.db.execute_query(query, (slot_id,))
+
+        # Optionally, clear any vehicle associated with this slot
+        clear_vehicle_query = ("UPDATE vehicles "
+                               "SET slot_id = NULL "
+                               "WHERE slot_id = %s;")
+        self.db.execute_query(clear_vehicle_query, (slot_id,))
+
         print(f"Slot {slot_id} has been vacated.")
 
     def close(self):
